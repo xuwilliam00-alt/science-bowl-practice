@@ -1,0 +1,28 @@
+name = "buzzer-lab-ai"
+main = "index.ts"
+compatibility_date = "2025-06-01"
+
+[vars]
+# Origins (scheme + host, no path, no trailing slash) allowed to call this Worker. Change YOURNAME.
+ALLOWED_ORIGINS = "https://xuwilliam00-alt.github.io,http://localhost:5173"
+# Groq chat model used for questions, explanations and challenge reviews (see console.groq.com/docs/models).
+GROQ_MODEL = "openai/gpt-oss-120b"
+# Secrets (set with `npx wrangler secret put`): GROQ_API_KEY, ACCESS_CODE
+
+# Live team games: one Durable Object per room code.
+[[durable_objects.bindings]]
+name = "ROOM"
+class_name = "Room"
+
+# Accounts, friends and saved profiles: one Durable Object with built-in SQLite storage (nothing else to create).
+[[durable_objects.bindings]]
+name = "ACCOUNTS"
+class_name = "Accounts"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Room"]
+
+[[migrations]]
+tag = "v2"
+new_sqlite_classes = ["Accounts"]
