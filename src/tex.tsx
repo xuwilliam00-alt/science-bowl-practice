@@ -19,7 +19,7 @@ export function autoTex(s: string): string {
   s = String(s ?? '');
   // Convert common fully spoken math constructions only when their delimiters are unambiguous.
   s = s.replace(/integral from ([\w.+-]+) to ([\w.+-]+) of (.+?),?\s*dx/gi, (_m,a,b,c) => `$\\int_{${a}}^{${b}} ${c}\\,dx$`);
-  s = s.replace(/\bthe square root of ([\w]+)\b/gi, (_m,a) => `$\\sqrt{${a}}$`).replace(/\b([a-z]) squared\b/gi, (_m,a) => `$${a}^{2}$`).replace(/\b([a-z]) cubed\b/gi, (_m,a) => `$${a}^{3}$');
+  s = s.replace(/\bthe square root of ([\w]+)\b/gi, (_m,a) => `$\\sqrt{${a}}$`).replace(/\b([a-z]) squared\b/gi, (_m,a) => `$${a}^{2}$`).replace(/\b([a-z]) cubed\b/gi, (_m,a) => `$${a}^{3}$`);
   return String(s ?? '').split(MATH).map((p, i) => i % 2 ? p : p
     .replace(/\b([A-Za-z]\w*)\^(\{[^}]+\}|[-+]?\d+(?:\.\d+)?|[A-Za-z])/g, (_m, a, b) => `$${a}^${b.startsWith('{') ? b : '{' + b + '}'}$`)
     .replace(/\bsqrt\(([^()]+)\)/g, (_m, a) => `$\\sqrt{${a}}$`)
